@@ -1,153 +1,149 @@
-<form name="container-form" class="mt-4" method="POST" action="/courses/handle-form-actions">
-    <h2>Khóa học của tôi</h2>
-    
-    <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
-    <div class="mt-4 d-flex align-items-center ">
-      <div class="form-check ">
-        <input class="form-check-input"  type="checkbox" value="" id="checkbox-all">
-        <label class="form-check-label" for="checkbox-all"> Chọn tất cả</label>
-       
-      </div>
-      <select class="form-control w-25" required name="action">
-        <option value="">---Chọn hành động---</option>
-        <option value="delete">Xóa</option>      
-      </select>   
-      <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Thực hiện</button>  
+<div class="container py-4">
+    <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" style="color:var(--el-primary);text-decoration:none">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Quản lí khóa học</li>
+                </ol>
+            </nav>
+            <h2>Quản lí khóa học</h2>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="/me/trash/courses" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash3 me-1"></i>Thùng rác ({{deletedCount}})
+            </a>
+            <a href="/courses/create" class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-lg me-1"></i>Thêm khóa học
+            </a>
+        </div>
     </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Tên khóa học</th>
-        <th scope="col">Mã video</th>
-        <th scope="col">Slug</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+    <form name="container-form" method="POST" action="/courses/handle-form-actions">
+        <div class="admin-table-wrapper">
+            <div class="bulk-action-bar">
+                <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" id="checkbox-all">
+                    <label class="form-check-label fw-semibold" for="checkbox-all" style="font-size:0.875rem">
+                        Chọn tất cả
+                    </label>
+                </div>
+                <select class="form-select form-select-sm" style="width:auto" name="action">
+                    <option value="">-- Hành động --</option>
+                    <option value="delete">Xóa tạm thời</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-danger check-all-submit-btn disabled">
+                    <i class="bi bi-check-lg me-1"></i>Thực hiện
+                </button>
+            </div>
 
-      </tr>
-    </thead>
-    <tbody>
-        {{#each courses}}
-      <tr>
-        <td>
-          <div class="form-check ">
-            <input class="form-check-input" name ="courseIds[]" type="checkbox" value="{{this._id}}" id="flexCheckDefault">        
-          </div>
-        </td>
-        <th scope="row"> {{ sum @index 1}} </th>
-        <td>{{this.name}}</td>
-        <td> {{this.videoId}} </td>
-        <td> {{this.slug}} </td>
-        <td> <a class="btn btn-link" href="/courses/{{this._id}}/edit">Sửa</a> </td>
-        {{!-- attribute data-whatever trong dòng dưới là data-id để lấy giá trị nào đó --}}
-        <td> <a class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal"  href="/">Xóa</a> </td>
-
-      </tr>
-      {{else}}
-      <tr> 
-          <td colspan="5" class="text-center">Bạn chưa học khóa học nào
-            <a href="/courses/create">Đăng khóa học</a>
-          </td>
-      </tr>
-      
-      {{/each}}
-    </tbody>
-  </table>
-</form>
-
-
-{{!-- Cofirm delete --}}
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
-        
-      </div>
-      <div class="modal-body">
-        Bạn có chắc muốn xóa chứ?
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-       {{!-- Khai báo thêm id là btn-delete-course để lắng nghe sự kiện khi click vào --}}
-       <button id="btn-delete-course" type="button" class="btn btn-primary">Xóa bỏ</button>
-      </div>
-    </div>
-  </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width:44px"></th>
+                        <th>#</th>
+                        <th>Tên khóa học</th>
+                        <th>Mã video</th>
+                        <th>Slug</th>
+                        <th style="width:100px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each courses}}
+                    <tr>
+                        <td>
+                            <input class="form-check-input" name="courseIds[]" type="checkbox" value="{{this._id}}">
+                        </td>
+                        <td class="text-muted">{{ sum @index 1 }}</td>
+                        <td class="fw-semibold">{{this.name}}</td>
+                        <td><code style="font-size:0.75rem">{{this.videoId}}</code></td>
+                        <td><small class="text-muted">{{this.slug}}</small></td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary me-1" href="/courses/{{this._id}}/edit" title="Sửa">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger"
+                               data-id="{{this._id}}"
+                               data-bs-toggle="modal"
+                               data-bs-target="#delete-course-modal"
+                               href="#"
+                               title="Xóa">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            Chưa có khóa học nào.
+                            <a href="/courses/create" style="color:var(--el-primary)">Thêm khóa học</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </form>
 </div>
 
-{{!-- Delete hidden form --}}
-<form method="POST" name="delete-course-form"> </form>
+<!-- Delete Confirm Modal -->
+<div class="modal fade" id="delete-course-modal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="deleteModalLabel">
+                    <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Xác nhận xóa
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-muted" style="font-size:0.9375rem">
+                Khóa học sẽ được chuyển vào thùng rác. Bạn có thể khôi phục sau.
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button id="btn-delete-course" type="button" class="btn btn-danger">
+                    <i class="bi bi-trash3 me-1"></i>Xóa
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="POST" name="delete-course-form"></form>
+
 <script>
- 
-  //Thực hiện xử lí khi DOM sẵn sàng 
-  document.addEventListener('DOMContentLoaded', function()
-  {
-    //Work flow của Soft Delete
-    var courseId;
-    //Lấy ra thẻ form submit cho việc delete(hidden form)
+document.addEventListener('DOMContentLoaded', function () {
+    var courseId = '';
     var deleteForm = document.forms['delete-course-form'];
-    //Lấy ra HTML của button confirm xóa
-    var btnDeleteCourse = document.getElementById("btn-delete-course");
-    //Lắng nghe sự kiện khi ấn vào nút confirm xóa
-    btnDeleteCourse.onclick = function() {
-      //Hidden Deleted Form sẽ được thêm action gửi về server xử lí
-      deleteForm.action ='/courses/' + courseId +'?_method=DELETE';
-      deleteForm.submit();
+
+    document.getElementById('btn-delete-course').addEventListener('click', function () {
+        deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+        deleteForm.submit();
+    });
+
+    document.getElementById('delete-course-modal').addEventListener('show.bs.modal', function (event) {
+        courseId = event.relatedTarget.dataset.id;
+    });
+
+    var checkboxAll = document.getElementById('checkbox-all');
+    var courseCheckboxes = document.querySelectorAll('input[name="courseIds[]"]');
+    var submitBtn = document.querySelector('.check-all-submit-btn');
+
+    function updateSubmitBtn() {
+        var checkedCount = document.querySelectorAll('input[name="courseIds[]"]:checked').length;
+        submitBtn.classList.toggle('disabled', checkedCount === 0);
     }
-    //Kích hoạt modal confirm delete
-    $('#delete-course-modal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget); // Button that triggered the modal
-      courseId = button.data('id'); // Extract info from data-* attributes      
-    }); 
 
+    checkboxAll.addEventListener('change', function () {
+        courseCheckboxes.forEach(function (cb) { cb.checked = checkboxAll.checked; });
+        updateSubmitBtn();
+    });
 
-    //Workflow của select-all với check box:
-    //Query ra checkbox-all, là checkbox khi check sẽ chọn tất cả
-    var checkboxAll = $('#checkbox-all');
-    //Query ra các checkbox trong item, nó sẽ là 1 Array(name) chứa các _id(value)
-    var courseItemCheckbox = $('input[name="courseIds[]"]');
-    //Query ra Button thực hiện submit hành động     
-    var checkAllSubmitBtn =$('.check-all-submit-btn');
-    //Ta cần có hàm phụ trợ để valid xem có hợp lệ để Submit hành động không
-    //Nếu có số checked >0, cho phép nhấn nút để submit
-    function renderCheckAllSubmitBtn() {
-        var isCheckedCount =  $('input[name="courseIds[]"]:checked').length;
-      if(isCheckedCount>0){
-        checkAllSubmitBtn.removeClass('disabled');
-      }
-      else {
-        checkAllSubmitBtn.addClass('disabled');
-      }
-    }    
-    //Xử lí khi checkbox-all được chọn => đống item checkbox đc chọn bằng Atr .prop
-    checkboxAll.change(function(){
-        var isCheckAll = $(this).prop('checked');      
-        courseItemCheckbox.prop('checked',isCheckAll); 
-        renderCheckAllSubmitBtn();       
+    courseCheckboxes.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+            checkboxAll.checked = Array.from(courseCheckboxes).every(function (c) { return c.checked; });
+            updateSubmitBtn();
+        });
     });
-    //Xử lí khi ta check từng item, nếu đang chọn full rồi bỏ -> bỏ checked ở checkall
-    //Chọn tất cả -> checked ở checkall
-    courseItemCheckbox.change( function(){
-        var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
-        checkboxAll.prop('checked',isCheckedAll);
-        renderCheckAllSubmitBtn();
-    });
-    //Lắng nghe sự kiện submit khi click nút Thực hiện
-    checkAllSubmitBtn.on('submit',function(e){
-      //Kiểm tra xem form trên đủ điều kiện submit chưa
-      var isSubmitable =!$(this).hasClass('disabled');
-      //Nếu không đủ điều kiện, chặn submit mặc định
-      if(!isSubmitable){
-        e.preventDefault();
-      }
-    });
-      
-  });
+});
 </script>

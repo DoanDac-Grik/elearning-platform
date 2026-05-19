@@ -1,76 +1,86 @@
-<div class="mt-4">
-    <div class="row">
-    
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-5">
+                <h1 class="hero-title">Học trực tuyến<br>mọi lúc, mọi nơi</h1>
+                <p class="hero-subtitle mt-3 mb-4">
+                    Nền tảng học video bài giảng chất lượng cao.
+                    Học theo tốc độ của bạn, từ cơ bản đến nâng cao.
+                </p>
+                <div id="hero-actions">
+                    <a href="/auth/loginpage" class="hero-cta">
+                        <i class="bi bi-play-circle-fill"></i>
+                        Bắt đầu học ngay
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div id="heroCarousel" class="carousel slide carousel-fade shadow-lg rounded-3 overflow-hidden" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="3000">
+                            <img src="https://i.pinimg.com/originals/61/ec/ab/61ecabce5788fe23f0d9e1ae7e5d8fca.jpg" class="d-block w-100" alt="Learning" style="height:280px;object-fit:cover">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="3500">
+                            <img src="https://image.freepik.com/free-vector/online-courses-concept_23-2148524391.jpg" class="d-block w-100" alt="Courses" style="height:280px;object-fit:cover">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <div class="col-7">
-            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="2000">
-                <img src="https://i.pinimg.com/originals/61/ec/ab/61ecabce5788fe23f0d9e1ae7e5d8fca.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-               
+{{#if courses.length}}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="section-title mb-0">Khóa học nổi bật</h2>
+            <a href="/courses/show" class="btn btn-outline-primary btn-sm">
+                Xem tất cả <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-4">
+            {{#each courses}}
+            <div class="col-sm-6 col-lg-4">
+                <div class="course-card">
+                    <div class="course-card__img-wrap">
+                        <a href="/courses/learn/{{this.slug}}">
+                            <img src="{{this.image}}" alt="{{this.name}}" loading="lazy">
+                        </a>
+                        <div class="course-card__play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                    </div>
+                    <div class="course-card__body">
+                        <h5 class="course-card__title">{{this.name}}</h5>
+                        <p class="course-card__desc">{{this.description}}</p>
+                        <div class="course-card__footer">
+                            <a href="/courses/learn/{{this.slug}}" class="course-card__btn">
+                                <i class="bi bi-play-fill"></i> Xem video
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="3000">
-                <img src="http://edunow.vn/wp-content/uploads/2021/03/xay-dung-ke-hoach-dao-tao-noi-bo.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                
-                 </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="3000">
-                <img src="https://image.freepik.com/free-vector/online-courses-concept_23-2148524391.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                
             </div>
-            </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+{{/if}}
 
-    </div>
-    <div class="col-5" style="background-color: rgb(238, 238, 125);">
-        <h2 >Đồ án cuối kì: </h2>
-        <h2>Kĩ thuật Phát triển Hệ thống Web</h2>
-        <ul>
-            <li>Giảng viên hướng dẫn: Võ Ngọc Tân</li>
-            <li>Sinh viên thực hiện: Đoàn Văn Đắc - Lê Tuấn Anh</li>
-            <li>Yêu cầu đồ án: Tạo website có các thành phần và chức năng sau:
-                <ul>
-                    <li>Kết nối với CSDL Mysql hoặc MongoDB</li>
-                    <li>Web Site gồm các trang:Trang chủ, Trang Chi Tiết, Trang Tìm Kiếm, Đăng ký, Đăng Nhập </li>
-                    <li>Phần Admin cho phép CRUD một bảng trong CSDL</li>
-                </ul>
-            </li>
-            <li>Website thực hiện: Website học online 
-                <ul>
-                    <li>Cho phép user học các video online</li>
-                    <li>Admin có thể quản lí các khóa học, cho phép CRUD, phần delete có thể force delete hoặc soft delete </li>
-                    <li>Tìm kiếm khóa học bằng tên khóa học</li>
-                    <li>Authenticate và Authorozite khi truy cập các đường dẫn</li>
-                </ul>
-            </li>        
-    </div>
-    </div>
-   <button id ="aaa" class="btn btn-lg btn-primary"><a href="/auth/loginpage" style="text-decoration: none;color:aliceblue;">Đăng nhập</a></button>
-   <button id="bbb" class="btn btn-lg btn-primary"><a href="/auth/registerpage" style="text-decoration: none;color:aliceblue;">Đăng kí</a></button>
-</div>
 <script>
-     document.addEventListener('DOMContentLoaded', function(){
-     var x= document.cookie;
-     
-    if(x){
-     document.getElementById('aaa').style.display = "none";
-     document.getElementById('bbb').style.display = "none";
-   
-   
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.cookie.includes('token')) {
+        var el = document.getElementById('hero-actions');
+        if (el) {
+            el.innerHTML = '<a href="/courses/show" class="hero-cta"><i class="bi bi-grid-fill"></i> Xem tất cả khóa học</a>';
+        }
     }
-     
-  });
+});
 </script>

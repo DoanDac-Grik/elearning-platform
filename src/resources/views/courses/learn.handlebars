@@ -1,11 +1,61 @@
+<div class="container py-4">
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb" style="font-size:0.8125rem">
+            <li class="breadcrumb-item"><a href="/" style="color:var(--el-primary);text-decoration:none">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="/courses/show" style="color:var(--el-primary);text-decoration:none">Khóa học</a></li>
+            <li class="breadcrumb-item active text-muted">{{course.name}}</li>
+        </ol>
+    </nav>
 
-<div class="mt-4 d-flex justify-content-center">
-    <div class="row ">
-        
-        <div class="col-lg ">
-            <h2>{{course.name}}</h2>
-            <iframe width="840" height="472" src="https://www.youtube.com/embed/{{course.videoId}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <p>{{course.description}}</p>
+    <div class="row g-4">
+        <div class="col-lg-9">
+            <div class="learn-container">
+                <div class="video-wrapper">
+                    {{#if course.videoId}}
+                    <iframe
+                        src="https://www.youtube.com/embed/{{course.videoId}}"
+                        title="{{course.name}}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    {{else}}
+                    <div class="d-flex align-items-center justify-content-center h-100 text-white">
+                        <div class="text-center">
+                            <i class="bi bi-play-circle" style="font-size:4rem;opacity:0.5"></i>
+                            <p class="mt-2 opacity-50">Video chưa có sẵn</p>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="learn-info">
+                    <h2>{{course.name}}</h2>
+                    <p>{{course.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="form-card" style="padding:1.25rem">
+                <h6 class="fw-bold mb-3" style="font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--el-text-muted)">
+                    Thông tin khóa học
+                </h6>
+                <div class="d-flex flex-column gap-2" style="font-size:0.875rem">
+                    <div class="d-flex gap-2">
+                        <i class="bi bi-tag text-muted mt-1"></i>
+                        <span class="text-muted">{{course.slug}}</span>
+                    </div>
+                    {{#if course.videoId}}
+                    <div class="d-flex gap-2">
+                        <i class="bi bi-youtube text-danger mt-1"></i>
+                        <span class="text-muted">{{course.videoId}}</span>
+                    </div>
+                    {{/if}}
+                </div>
+                <hr style="border-color:var(--el-border)">
+                <a href="/courses/show" class="btn btn-outline-primary btn-sm w-100">
+                    <i class="bi bi-arrow-left me-1"></i>Quay lại
+                </a>
+            </div>
         </div>
     </div>
 </div>

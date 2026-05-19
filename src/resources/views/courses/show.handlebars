@@ -1,22 +1,39 @@
+<div class="container py-5">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="section-title mb-0">Tất cả khóa học</h2>
+        <span class="text-muted" style="font-size:0.875rem">{{courses.length}} khóa học</span>
+    </div>
 
-
-<div class="row">
-     {{#each courses}}
-        <div class="col-sm-6 col-lg-4 mt-2">
-            
-            <div class="card" style="min-height: 400px;">
-            <a href="/courses/learn/{{this.slug}}">
-            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-            </a>
-            <div class="card-body">
-            <h5 class="card-title">{{this.name}}</h5>
-            <p class="card-text">{{this.description}}</p>
-            <a href="/courses/learn/{{this.slug}}" class="btn btn-primary">Xem video</a>
-            </div>
-         
+    {{#if courses.length}}
+    <div class="row g-4">
+        {{#each courses}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="course-card">
+                <div class="course-card__img-wrap">
+                    <a href="/courses/learn/{{this.slug}}">
+                        <img src="{{this.image}}" alt="{{this.name}}" loading="lazy">
+                    </a>
+                    <div class="course-card__play-overlay">
+                        <i class="bi bi-play-circle-fill"></i>
+                    </div>
+                </div>
+                <div class="course-card__body">
+                    <h5 class="course-card__title">{{this.name}}</h5>
+                    <p class="course-card__desc">{{this.description}}</p>
+                    <div class="course-card__footer">
+                        <a href="/courses/learn/{{this.slug}}" class="course-card__btn">
+                            <i class="bi bi-play-fill"></i> Xem video
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         {{/each}}
-        
+    </div>
+    {{else}}
+    <div class="empty-state">
+        <i class="bi bi-collection-play empty-state__icon"></i>
+        <p>Chưa có khóa học nào.</p>
+    </div>
+    {{/if}}
 </div>
-   

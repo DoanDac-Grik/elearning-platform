@@ -1,12 +1,15 @@
 {
   "name": "blog_nodejs-course",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "hoc nodejs",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write 'src/**/*.{js,json,scss}'",
-    "start": "nodemon --inspect ./src/index.js",
-    "watch": "node-sass -w src/resources/scss/app.scss --output src/public/css/app.css",
+    "dev": "nodemon --watch src --ext ts,handlebars,scss --exec tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "watch:css": "sass --watch src/resources/scss/app.scss src/public/css/app.css",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,26 +27,34 @@
   },
   "homepage": "https://github.com/DoanDac-Grik/nodejs-course_blog#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "bootstrap-icons": "^1.5.0",
-    "cookie-parser": "^1.4.5",
+    "bcryptjs": "^3.0.3",
+    "bootstrap-icons": "^1.11.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-handlebars": "^5.3.3",
-    "jsonwebtoken": "^8.5.1",
+    "express": "^5.0.1",
+    "express-handlebars": "^8.0.1",
+    "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
-    "mongoose": "^5.12.9",
-    "mongoose-delete": "^0.5.3",
-    "mongoose-slug-generator": "^1.0.4"
+    "mongoose": "^8.4.0",
+    "mongoose-delete": "^1.0.2",
+    "mongoose-slug-generator": "^1.0.4",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "gulp-wait": "^0.0.2",
-    "husky": "^6.0.0",
-    "i": "^0.3.6",
-    "lint-staged": "^11.0.0",
-    "morgan": "^1.10.0",
-    "node-sass": "^6.0.0",
-    "nodemon": "^2.0.12",
-    "prettier": "^2.3.0"
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/method-override": "^0.0.35",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.14.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2",
+    "sass": "^1.77.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.15.7",
+    "typescript": "^5.4.5"
   }
 }
