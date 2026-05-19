@@ -1,7 +1,7 @@
 {
-  "name": "blog_nodejs-course",
+  "name": "elearning-platform",
   "version": "2.0.0",
-  "description": "hoc nodejs",
+  "description": "E-learning platform",
   "main": "./dist/index.js",
   "scripts": {
     "dev": "nodemon --watch src --ext ts,handlebars,scss --exec tsx src/index.ts",
@@ -14,18 +14,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DoanDac-Grik/nodejs-course_blog.git"
+    "url": "git+https://github.com/DoanDac-Grik/elearning-platform.git"
   },
   "keywords": [
-    "hoc",
+    "elearning",
     "nodejs"
   ],
   "author": "doandac",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DoanDac-Grik/nodejs-course_blog/issues"
+    "url": "https://github.com/DoanDac-Grik/elearning-platform/issues"
   },
-  "homepage": "https://github.com/DoanDac-Grik/nodejs-course_blog#readme",
+  "homepage": "https://github.com/DoanDac-Grik/elearning-platform#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "bootstrap-icons": "^1.11.3",
