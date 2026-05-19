@@ -5,17 +5,27 @@ import displayUser from '../../middleware/display-user.middleware';
 
 const router = Router();
 
-router.get('/show', displayUser, courseController.show);
-router.get('/search', authJwt.verifyToken, displayUser, courseController.search);
-router.get('/learn/:slug', authJwt.verifyToken, displayUser, courseController.learn);
-router.get('/create', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.create);
-router.post('/store', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.store);
-router.post(
-  '/handle-form-actions',
+router.get('/', displayUser, courseController.index);
+router.post('/', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.create);
+router.delete(
+  '/bulk',
   [authJwt.verifyToken, authJwt.isAdmin],
   displayUser,
-  courseController.handleFormActions,
+  courseController.bulkDestroy,
 );
+router.patch(
+  '/bulk/restore',
+  [authJwt.verifyToken, authJwt.isAdmin],
+  displayUser,
+  courseController.bulkRestore,
+);
+router.delete(
+  '/bulk/permanent',
+  [authJwt.verifyToken, authJwt.isAdmin],
+  displayUser,
+  courseController.bulkPermanentlyDestroy,
+);
+router.get('/new', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.new);
 router.get('/:id/edit', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.edit);
 router.put('/:id', [authJwt.verifyToken, authJwt.isAdmin], displayUser, courseController.update);
 router.delete(
@@ -31,10 +41,11 @@ router.patch(
   courseController.restore,
 );
 router.delete(
-  '/:id/force',
+  '/:id/permanent',
   [authJwt.verifyToken, authJwt.isAdmin],
   displayUser,
-  courseController.forceDestroy,
+  courseController.permanentlyDestroy,
 );
+router.get('/:slug', authJwt.verifyToken, displayUser, courseController.show);
 
 export default router;

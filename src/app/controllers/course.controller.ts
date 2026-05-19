@@ -3,11 +3,14 @@ import Course from '../models/course.model';
 import { mongooseToObject, multipleMongooseToObject } from '../../util/mongoose';
 
 class CourseController {
-  async learn(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async index(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      // FIX: was Course.findOne(req.params.slug) — string instead of filter object
-      const course = await Course.findOne({ slug: req.params.slug });
-      res.render('courses/learn', { course: mongooseToObject(course) });
+      const name = typeof req.query.name === 'string' ? req.query.name.trim() : '';
+      const filter = name
+        ? { name: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') }
+        : {};
+      const courses = await Course.find(filter);
+      res.render('courses/show', { courses: multipleMongooseToObject(courses) });
     } catch (err) {
       next(err);
     }
@@ -15,18 +18,18 @@ class CourseController {
 
   async show(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const courses = await Course.find({});
-      res.render('courses/show', { courses: multipleMongooseToObject(courses) });
+      const course = await Course.findOne({ slug: req.params.slug });
+      res.render('courses/learn', { course: mongooseToObject(course) });
     } catch (err) {
       next(err);
     }
   }
 
-  create(req: Request, res: Response): void {
+  new(req: Request, res: Response): void {
     res.render('courses/create', { username: 'admin' });
   }
 
-  async store(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const course = new Course(req.body);
       await course.save();
@@ -48,7 +51,7 @@ class CourseController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       await Course.updateOne({ _id: req.params.id }, req.body);
-      res.redirect('/me/stored/courses');
+      res.redirect('/me/courses');
     } catch (err) {
       next(err);
     }
@@ -72,7 +75,7 @@ class CourseController {
     }
   }
 
-  async forceDestroy(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async permanentlyDestroy(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       await Course.deleteOne({ _id: req.params.id });
       res.redirect(req.get('Referrer') || '/');
@@ -81,35 +84,34 @@ class CourseController {
     }
   }
 
-  async search(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async bulkDestroy(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const course = await Course.findOne({ name: req.query.title as string });
-      res.render('courses/learn', { course: mongooseToObject(course) });
+      const { courseIds } = req.body as { courseIds?: string | string[] };
+      const selectedCourseIds = ([] as string[]).concat(courseIds ?? []);
+      await Course.delete({ _id: { $in: selectedCourseIds } });
+      res.redirect(req.get('Referrer') || '/');
     } catch (err) {
       next(err);
     }
   }
 
-  async handleFormActions(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async bulkRestore(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { action, courseIds } = req.body as { action: string; courseIds: string[] };
-      switch (action) {
-        case 'delete':
-          await Course.delete({ _id: { $in: courseIds } });
-          res.redirect(req.get('Referrer') || '/');
-          break;
-        case 'restore':
-          await Course.restore({ _id: { $in: courseIds } });
-          res.redirect(req.get('Referrer') || '/');
-          break;
-        // FIX: was duplicate 'restore' case, should be force-delete
-        case 'force-delete':
-          await Course.deleteMany({ _id: { $in: courseIds } });
-          res.redirect(req.get('Referrer') || '/');
-          break;
-        default:
-          res.status(400).json({ message: 'action invalid!!!' });
-      }
+      const { courseIds } = req.body as { courseIds?: string | string[] };
+      const selectedCourseIds = ([] as string[]).concat(courseIds ?? []);
+      await Course.restore({ _id: { $in: selectedCourseIds } });
+      res.redirect(req.get('Referrer') || '/');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async bulkPermanentlyDestroy(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { courseIds } = req.body as { courseIds?: string | string[] };
+      const selectedCourseIds = ([] as string[]).concat(courseIds ?? []);
+      await Course.deleteMany({ _id: { $in: selectedCourseIds } });
+      res.redirect(req.get('Referrer') || '/');
     } catch (err) {
       next(err);
     }

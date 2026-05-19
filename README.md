@@ -12,6 +12,13 @@
 
 ---
 
+## Contributors
+
+- Đoàn Văn Đắc
+- Lê Tuấn Anh
+
+---
+
 ## Giới thiệu
 
 Website học online cho phép người dùng xem các video bài giảng. Admin có thể quản lí khóa học (CRUD), xác thực và phân quyền người dùng.
@@ -79,15 +86,15 @@ PORT=3000
 src/
 ├── index.ts                  # Entry point
 ├── app/
-│   ├── controllers/          # AuthController, CourseController, ...
-│   └── models/               # User, Course, Role (Mongoose)
+│   ├── controllers/          # *.controller.ts
+│   └── models/               # *.model.ts (Mongoose)
 ├── config/
 │   ├── auth/config.ts        # JWT config
 │   └── db/index.ts           # MongoDB connection
 ├── middleware/
-│   ├── authJwt.ts            # Verify token, isAdmin
-│   ├── displayUser.ts        # Inject user vào res.locals
-│   └── verifySignUp.ts       # Validate đăng ký
+│   ├── auth-jwt.middleware.ts       # Verify token, isAdmin
+│   ├── display-user.middleware.ts   # Inject user vào res.locals
+│   └── verify-sign-up.middleware.ts # Validate đăng ký
 ├── resources/
 │   ├── routes/               # Express routers
 │   ├── views/                # Handlebars templates

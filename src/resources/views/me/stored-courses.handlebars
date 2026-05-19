@@ -10,16 +10,16 @@
             <h2>Quản lí khóa học</h2>
         </div>
         <div class="d-flex gap-2">
-            <a href="/me/trash/courses" class="btn btn-outline-danger btn-sm">
+            <a href="/me/courses/trash" class="btn btn-outline-danger btn-sm">
                 <i class="bi bi-trash3 me-1"></i>Thùng rác ({{deletedCount}})
             </a>
-            <a href="/courses/create" class="btn btn-primary btn-sm">
+            <a href="/courses/new" class="btn btn-primary btn-sm">
                 <i class="bi bi-plus-lg me-1"></i>Thêm khóa học
             </a>
         </div>
     </div>
 
-    <form name="container-form" method="POST" action="/courses/handle-form-actions">
+    <form name="container-form" method="POST" action="/courses/bulk?_method=DELETE">
         <div class="admin-table-wrapper">
             <div class="bulk-action-bar">
                 <div class="form-check mb-0">
@@ -76,7 +76,7 @@
                     <tr>
                         <td colspan="6" class="text-center py-4 text-muted">
                             Chưa có khóa học nào.
-                            <a href="/courses/create" style="color:var(--el-primary)">Thêm khóa học</a>
+                            <a href="/courses/new" style="color:var(--el-primary)">Thêm khóa học</a>
                         </td>
                     </tr>
                     {{/each}}

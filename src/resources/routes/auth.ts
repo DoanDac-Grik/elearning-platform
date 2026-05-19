@@ -4,14 +4,14 @@ import { verifySignUp } from '../../middleware/verify-sign-up.middleware';
 
 const router = Router();
 
+router.get('/register', authController.registerPage);
 router.post(
-  '/signup/submit',
+  '/register',
   [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
-  authController.signup,
+  authController.register,
 );
-router.post('/signin/submit', authController.signin);
-router.get('/registerpage', authController.registerPage);
-router.get('/loginpage', authController.loginPage);
-router.get('/logout', authController.logout);
+router.get('/login', authController.loginPage);
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 export default router;

@@ -14,7 +14,7 @@ class AuthController {
     res.render('auth/login');
   }
 
-  signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const user = new User({
         username: req.body.username,
@@ -32,13 +32,13 @@ class AuthController {
         if (defaultRole) savedUser.roles = [defaultRole._id];
       }
       await savedUser.save();
-      res.redirect('/auth/loginpage');
+      res.redirect('/auth/login');
     } catch (err) {
       next(err);
     }
   };
 
-  signin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const user = await User.findOne({ username: req.body.username })
         .populate('roles', '-__v')
@@ -57,7 +57,7 @@ class AuthController {
 
       const token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 3600 });
       res.cookie('token', token);
-      res.redirect('/courses/show');
+      res.redirect('/courses');
     } catch (err) {
       next(err);
     }

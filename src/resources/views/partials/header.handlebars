@@ -8,9 +8,9 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarMain">
-      <form action="/courses/search" class="d-flex mx-auto my-2 my-lg-0" method="GET" style="max-width:320px;width:100%">
+      <form action="/courses" class="d-flex mx-auto my-2 my-lg-0" method="GET" style="max-width:320px;width:100%">
         <div class="input-group">
-          <input name="title" class="form-control border-end-0" type="search" placeholder="Tìm khóa học..." aria-label="Search">
+          <input name="name" class="form-control border-end-0" type="search" placeholder="Tìm khóa học..." aria-label="Search">
           <button class="btn btn-outline-secondary border-start-0" type="submit">
             <i class="bi bi-search"></i>
           </button>
@@ -19,7 +19,7 @@
 
       <ul class="navbar-nav ms-auto align-items-center gap-1">
         <li class="nav-item">
-          <a class="nav-link" href="/courses/show">
+          <a class="nav-link" href="/courses">
             <i class="bi bi-grid-3x3-gap me-1"></i>Khóa học
           </a>
         </li>
@@ -29,18 +29,18 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" href="/courses/create">
+              <a class="dropdown-item" href="/courses/new">
                 <i class="bi bi-plus-circle me-2"></i>Đăng khóa học
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="/me/stored/courses">
+              <a class="dropdown-item" href="/me/courses">
                 <i class="bi bi-collection-play me-2"></i>Quản lí khóa học
               </a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item text-danger" href="/auth/logout">
+              <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
               </a>
             </li>
@@ -50,6 +50,8 @@
     </div>
   </div>
 </nav>
+
+<form id="logout-form" action="/auth/logout" method="POST" class="d-none"></form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {

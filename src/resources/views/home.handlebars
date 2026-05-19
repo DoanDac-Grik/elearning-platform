@@ -8,7 +8,7 @@
                     Học theo tốc độ của bạn, từ cơ bản đến nâng cao.
                 </p>
                 <div id="hero-actions">
-                    <a href="/auth/loginpage" class="hero-cta">
+                    <a href="/auth/login" class="hero-cta">
                         <i class="bi bi-play-circle-fill"></i>
                         Bắt đầu học ngay
                     </a>
@@ -41,7 +41,7 @@
     <div class="container">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="section-title mb-0">Khóa học nổi bật</h2>
-            <a href="/courses/show" class="btn btn-outline-primary btn-sm">
+            <a href="/courses" class="btn btn-outline-primary btn-sm">
                 Xem tất cả <i class="bi bi-arrow-right ms-1"></i>
             </a>
         </div>
@@ -50,7 +50,7 @@
             <div class="col-sm-6 col-lg-4">
                 <div class="course-card">
                     <div class="course-card__img-wrap">
-                        <a href="/courses/learn/{{this.slug}}">
+                        <a href="/courses/{{this.slug}}">
                             <img src="{{this.image}}" alt="{{this.name}}" loading="lazy">
                         </a>
                         <div class="course-card__play-overlay">
@@ -61,7 +61,7 @@
                         <h5 class="course-card__title">{{this.name}}</h5>
                         <p class="course-card__desc">{{this.description}}</p>
                         <div class="course-card__footer">
-                            <a href="/courses/learn/{{this.slug}}" class="course-card__btn">
+                            <a href="/courses/{{this.slug}}" class="course-card__btn">
                                 <i class="bi bi-play-fill"></i> Xem video
                             </a>
                         </div>
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.cookie.includes('token')) {
         var el = document.getElementById('hero-actions');
         if (el) {
-            el.innerHTML = '<a href="/courses/show" class="hero-cta"><i class="bi bi-grid-fill"></i> Xem tất cả khóa học</a>';
+            el.innerHTML = '<a href="/courses" class="hero-cta"><i class="bi bi-grid-fill"></i> Xem tất cả khóa học</a>';
         }
     }
 });
