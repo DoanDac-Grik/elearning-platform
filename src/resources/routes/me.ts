@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import MeController from '../../app/controllers/MeController';
+import meController from '../../app/controllers/me.controller';
 
 const router = Router();
 
-router.get('/stored/courses', MeController.storedCourses);
-router.get('/trash/courses', MeController.trashCourses);
+router.get('/stored/courses', meController.storedCourses);
+router.get('/trash/courses', meController.trashCourses);
 
 export default router;

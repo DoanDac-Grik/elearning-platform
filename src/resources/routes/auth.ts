@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import AuthController from '../../app/controllers/AuthController';
-import { verifySignUp } from '../../middleware/verifySignUp';
+import authController from '../../app/controllers/auth.controller';
+import { verifySignUp } from '../../middleware/verify-sign-up.middleware';
 
 const router = Router();
 
 router.post(
   '/signup/submit',
   [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
-  AuthController.signup,
+  authController.signup,
 );
-router.post('/signin/submit', AuthController.signin);
-router.get('/registerpage', AuthController.registerPage);
-router.get('/loginpage', AuthController.loginPage);
-router.get('/logout', AuthController.logout);
+router.post('/signin/submit', authController.signin);
+router.get('/registerpage', authController.registerPage);
+router.get('/loginpage', authController.loginPage);
+router.get('/logout', authController.logout);
 
 export default router;

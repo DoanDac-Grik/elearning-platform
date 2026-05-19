@@ -42,7 +42,7 @@ app.set('views', path.join(__dirname, 'resources/views'));
 route(app);
 
 // Global error handler
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).send(`<h1>500 - Server Error</h1><pre>${err.message}</pre>`);
 });

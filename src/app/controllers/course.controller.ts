@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import Course from '../models/Course';
+import Course from '../models/course.model';
 import { mongooseToObject, multipleMongooseToObject } from '../../util/mongoose';
 
 class CourseController {

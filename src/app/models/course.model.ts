@@ -1,8 +1,8 @@
-import mongoose, { Schema, Types } from 'mongoose';
+import mongoose, { Schema, type SchemaDefinitionProperty, Types } from 'mongoose';
 import slugGenerator = require('mongoose-slug-generator');
 import mongooseDelete = require('mongoose-delete');
 
-export interface ICourse extends mongooseDelete.SoftDeleteDocument {
+export interface CourseDocument extends mongooseDelete.SoftDeleteDocument {
   _id: Types.ObjectId;
   name: string;
   description: string;
@@ -15,21 +15,25 @@ export interface ICourse extends mongooseDelete.SoftDeleteDocument {
 
 mongoose.plugin(slugGenerator);
 
-const CourseSchema = new Schema<ICourse>(
+const courseSchema = new Schema<CourseDocument>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
     videoId: { type: String },
     image: { type: String, maxlength: 255 },
-    slug: { type: String, slug: 'name', unique: true } as any,
+    slug: {
+      type: String,
+      slug: 'name',
+      unique: true,
+    } as unknown as SchemaDefinitionProperty<string>,
   },
   { timestamps: true, collection: 'courses' },
 );
 
-CourseSchema.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt: true });
+courseSchema.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt: true });
 
-export const Course = mongoose.model<ICourse>(
+export const Course = mongoose.model<CourseDocument>(
   'Course',
-  CourseSchema,
-) as unknown as mongooseDelete.SoftDeleteModel<ICourse>;
+  courseSchema,
+) as unknown as mongooseDelete.SoftDeleteModel<CourseDocument>;
 export default Course;

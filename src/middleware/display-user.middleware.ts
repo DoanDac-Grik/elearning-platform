@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import User from '../app/models/User';
+import User from '../app/models/user.model';
 
 export default async function displayUser(
   req: Request,

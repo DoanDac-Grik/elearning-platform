@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/auth/config';
-import User from '../app/models/User';
-import Role from '../app/models/Role';
+import User from '../app/models/user.model';
+import Role from '../app/models/role.model';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.cookies?.token as string | undefined;

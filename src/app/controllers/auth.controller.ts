@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import config from '../../config/auth/config';
-import User from '../models/User';
-import Role from '../models/Role';
+import User from '../models/user.model';
+import Role from '../models/role.model';
 
 class AuthController {
   registerPage(req: Request, res: Response): void {

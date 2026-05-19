@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import SiteController from '../../app/controllers/SiteController';
-import displayUser from '../../middleware/displayUser';
+import siteController from '../../app/controllers/site.controller';
+import displayUser from '../../middleware/display-user.middleware';
 
 const router = Router();
 
-router.use('/', displayUser, SiteController.index);
+router.use('/', displayUser, siteController.index);
 
 export default router;
