@@ -25,15 +25,15 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Template engine — must be configured BEFORE route()
 app.engine(
-    'handlebars',
-    engine({
-        helpers: {
-            sum: (a: number, b: number): number => a + b,
-        },
-        defaultLayout: 'main',
-        layoutsDir: path.join(__dirname, 'resources/views/layouts'),
-        partialsDir: path.join(__dirname, 'resources/views/partials'),
-    })
+  'handlebars',
+  engine({
+    helpers: {
+      sum: (a: number, b: number): number => a + b,
+    },
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, 'resources/views/layouts'),
+    partialsDir: path.join(__dirname, 'resources/views/partials'),
+  }),
 );
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'resources/views'));
@@ -42,18 +42,11 @@ app.set('views', path.join(__dirname, 'resources/views'));
 route(app);
 
 // Global error handler
-app.use(
-    (
-        err: Error,
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ) => {
-        console.error(err.stack);
-        res.status(500).send(`<h1>500 - Server Error</h1><pre>${err.message}</pre>`);
-    }
-);
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).send(`<h1>500 - Server Error</h1><pre>${err.message}</pre>`);
+});
 
 app.listen(PORT, () => {
-    console.log(`App listening at http://localhost:${PORT}`);
+  console.log(`App listening at http://localhost:${PORT}`);
 });

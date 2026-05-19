@@ -3,14 +3,14 @@ import Course from '../models/Course';
 import { multipleMongooseToObject } from '../../util/mongoose';
 
 class SiteController {
-    async index(req: Request, res: Response, next: NextFunction): Promise<void> {
-        try {
-            const courses = await Course.find({});
-            res.render('home', { courses: multipleMongooseToObject(courses) });
-        } catch (err) {
-            next(err);
-        }
+  async index(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const courses = await Course.find({});
+      res.render('home', { courses: multipleMongooseToObject(courses) });
+    } catch (err) {
+      next(err);
     }
+  }
 }
 
 export default new SiteController();

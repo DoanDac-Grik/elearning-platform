@@ -5,9 +5,9 @@ import { verifySignUp } from '../../middleware/verifySignUp';
 const router = Router();
 
 router.post(
-    '/signup/submit',
-    [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
-    AuthController.signup
+  '/signup/submit',
+  [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
+  AuthController.signup,
 );
 router.post('/signin/submit', AuthController.signin);
 router.get('/registerpage', AuthController.registerPage);
