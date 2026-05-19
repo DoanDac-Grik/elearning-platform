@@ -7,7 +7,9 @@ module.exports = function displayUser(req, res, next){
  
     User.findOne({_id: req.userId})
     .then(user => {res.locals.user ={username : user.username}})
-    .catch( err => {res.send('xịt')})   
+    //.catch( err => {res.send('xịt')})  
+    .catch( err => {res.locals.user ={username : 'Chào Guest'}})  
+
     next()
   
       

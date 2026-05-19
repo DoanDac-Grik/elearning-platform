@@ -69,6 +69,15 @@ class CourseController {
         .catch(next);
     }
     
+    //[get] /courses/search
+    search(req,res,next){
+        
+        Course.findOne({name: req.query.title})
+       
+       .then( course => { res.render('courses/learn', {course : mongooseToObject(course)});})
+        .catch(next)
+    }
+
     //post /courses/handle-form-actions
     handleFormActions(req, res, next){
        //res.json(req.body);

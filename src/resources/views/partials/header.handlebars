@@ -7,13 +7,13 @@
     </button>
         
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;" > 
-      
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      {{!-- Search form --}}
+      <form action="/courses/search" class="d-flex" method="GET">
+        <input name="title" class="form-control me-2" type="search" placeholder="Nhập Title Bài giảng" aria-label="Search">
         <button class="btn btn-outline-success " type="submit">Search</button>
       </form>
-      <div>
-       
+
+      <div>      
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">   
           <li class="nav-item dropdown">
             <a  class="nav-link dropdown-toggle  " href="#" id="navbar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,6 +35,7 @@
     </div>
   </div>
 </nav>
+
 <script>
   document.addEventListener('DOMContentLoaded', function(){
      var x= document.cookie;
@@ -44,7 +45,7 @@
      document.getElementById('ooo').style.display = "none";
    
     }
-     console.log(document.getElementById('navbar').innerHTML)
+     
   });
    
 </script>

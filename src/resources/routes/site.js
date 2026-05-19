@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const displayUser  = require("../../middleware/displayUser");
 
 const siteController = require('../../app/controllers/SiteController');
 
-router.use('/', siteController.index);
+router.use('/', displayUser, siteController.index);
 
 module.exports = router;

@@ -78,7 +78,7 @@ class AuthController {
                             return;
                         }
                         //res.send({ message: "User was registered successfully!" });
-                        res.render('home',{user: mongooseToObject(user)})
+                        res.redirect('home')
                         console.log(user);
                     });
                 });
